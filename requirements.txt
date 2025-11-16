@@ -1,0 +1,15 @@
+fastapi
+uvicorn[standard]
+httpx
+beautifulsoup4
+sqlalchemy>=1.4
+asyncpg
+alembic
+pydantic
+python-dotenv
+langchain
+langchain-google-genai
+google-generativeai
+python-multipart
+fastapi-utils
+python-socketio
