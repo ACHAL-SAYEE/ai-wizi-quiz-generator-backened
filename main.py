@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse
 from db import get_db, engine, Base
 import scraper, llm, crud
 from schemas import GenerateRequest, QuizResponse
-from utils import clean_whitespace
+from utils import current_time
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 import asyncio
@@ -44,6 +44,8 @@ async def generate_quiz(req: GenerateRequest, db: AsyncSession = Depends(get_db)
         })
 
     # 2. Scrape
+    time=current_time()
+    print("time before web scraping",time)
     try:
         scraped = await scraper.scrape_wikipedia(url)
     except Exception as e:
@@ -53,7 +55,8 @@ async def generate_quiz(req: GenerateRequest, db: AsyncSession = Depends(get_db)
     summary = scraped.get("summary")
     context = scraped.get("extracted_text", "")
     sections = scraped.get("sections", [])
-
+    time=current_time()
+    print("time after web scraping",time)
 
 
     # 3. Call LLM to generate quiz
@@ -61,6 +64,8 @@ async def generate_quiz(req: GenerateRequest, db: AsyncSession = Depends(get_db)
         model_out = await llm.generate_quiz_from_text(title, summary, sections, context)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"LLM generation failed: {str(e)}")
+    time=current_time()
+    print("time after llm call scraping",time)
 
     quiz = model_out.get("quiz", [])
     related_topics = model_out.get("related_topics", [])

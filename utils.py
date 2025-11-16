@@ -1,7 +1,7 @@
 # app/utils.py
 import re
 from bs4 import BeautifulSoup
-
+from datetime import datetime
 def clean_whitespace(text: str) -> str:
     return re.sub(r'\s+', ' ', (text or "")).strip()
 
@@ -28,3 +28,7 @@ def extract_sections_and_headings(html: str):
             text = re.sub(r'\[edit\]$', '', text).strip()
             headings.append(text)
     return headings
+
+def current_time():
+    return datetime.now().strftime("%H:%M:%S")
+

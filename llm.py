@@ -26,11 +26,12 @@ async def generate_quiz_from_text(title: str, summary: str, sections: List[str],
     resp = llm.invoke([message])  # synchronous-like; LangChain wrapper will handle
     # resp.content is often a list/dict depending on model; ensure string
     text = getattr(resp, "content", None)
+    print("response llm ",resp)
     if isinstance(text, list):
         # sometimes returns list of messages; join
         text = " ".join([m.get("text", "") if isinstance(m, dict) else str(m) for m in text])
     text = str(text)
-
+    print("text llm ",text)
     # some models return JSON inside markdown. Attempt to extract first {...}
     import re
     m = re.search(r'(\{.*\})', text, re.S)
