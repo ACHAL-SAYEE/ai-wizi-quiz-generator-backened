@@ -18,7 +18,6 @@ class QuizResponse(BaseModel):
     url: str
     title: Optional[str]
     summary: Optional[str]
-    key_entities: Optional[Dict[str, List[str]]]
     sections: Optional[List[str]]
     quiz: List[QuizItem]
     related_topics: Optional[List[str]]

@@ -9,7 +9,7 @@ class QuizEntry(Base):
     url = Column(String(1000), unique=True, index=True, nullable=False)
     title = Column(String(512))
     summary = Column(Text)
-    key_entities = Column(JSON)      # {"people":[], "orgs":[], "locations":[]}
+    #key_entities = Column(JSON)      # {"people":[], "orgs":[], "locations":[]}
     sections = Column(JSON)          # list of section headings
     raw_html = Column(Text)          # optional: store scraped HTML
     extracted_text = Column(Text)    # cleaned article text used for LLM
